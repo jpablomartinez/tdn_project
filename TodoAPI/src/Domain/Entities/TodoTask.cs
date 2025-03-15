@@ -1,10 +1,13 @@
 namespace TodoAPI.src.Domain.Entities;
 
-public class TodoTask(string title, string description)
+public class TodoTask(int id, string title, string description)
 {
 
-    public string? Id { get; private set; }
-    public string Title { get; private set; } = title;
+    public int Id { get; set; } = id;
+    public string Title { get; set; } = title;
 
-    public string? Description { get; private set; } = description;
+    public string? Description { get; set; } = description;
+
+    //public bool? IsComplete { get; set; } = isComplete;
+
 }
