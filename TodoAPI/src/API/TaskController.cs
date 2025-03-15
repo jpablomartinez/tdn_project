@@ -27,6 +27,17 @@ public class TaskController : ControllerBase
         return Ok(tasks[id]);
     }
 
+    [HttpGet("search")]
+    public IActionResult GetByTitle([FromQuery] string title)
+    {
+        if (string.IsNullOrEmpty(title))
+        {
+            return BadRequest("[ERROR] Title cannot be empty");
+        }
+        List<TodoTask> _tasks = tasks.FindAll((TodoTask task) => task.Title == title);
+        return Ok(_tasks);
+    }
+
     [HttpPost]
     public IActionResult Create([FromBody] TodoTask request)
     {
