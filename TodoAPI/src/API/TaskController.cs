@@ -63,7 +63,7 @@ public class TaskController : ControllerBase
             return BadRequest("[ERROR] Title cannot be empty");
         }
         string description = ParseDescription(request.Description ?? "");
-        TodoTask task = new(request.Id, request.Title, description);
+        TodoTask task = new(request.Id, request.Title, description, false, DateTime.Now, request.CompleteAt, request.Deadline);
         _todoTaskDbContext.tasks.Add(task);
         await _todoTaskDbContext.SaveChangesAsync();
         return CreatedAtAction(nameof(GetById), new { id = request.Id }, task);
