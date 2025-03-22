@@ -1,0 +1,4 @@
+2025-03-21 21:24:20.390 -03:00 [INF] Finding task by id: 5
+2025-03-21 21:26:43.143 -03:00 [INF] Finding task by id: 10
+2025-03-21 21:27:56.295 -03:00 [ERR] Title cannot be empty
+2025-03-21 22:41:34.774 -03:00 [ERR] Title cannot be empty
