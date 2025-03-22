@@ -22,13 +22,16 @@ app.Use(async (context, next) =>
     }
     catch (Exception ex)
     {
-        Log.Error($"Global exception caught: {ex.Message} \n{ex.StackTrace}");
-        context.Response.StatusCode = 500;
-        await context.Response.WriteAsJsonAsync(new
+        if (!context.Response.HasStarted)
         {
-            Message = "An unexpected error occurred. Please try again later.",
-            Error = ex.Message,
-        });
+            Log.Error($"Global exception caught: {ex.Message} \n{ex.StackTrace}");
+            context.Response.StatusCode = 500;
+            await context.Response.WriteAsJsonAsync(new
+            {
+                Message = "An unexpected error occurred. Please try again later.",
+                Error = ex.Message,
+            });
+        }
     }
 });
 
