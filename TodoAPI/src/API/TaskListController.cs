@@ -7,15 +7,10 @@ namespace TodoAPI.src.API;
 [ApiController]
 [Route("api/[controller]")]
 
-public class TaskListController : ControllerBase
+public class TaskListController(TodoTaskDb context) : ControllerBase
 {
 
-    private readonly TodoTaskDb _todoTaskDbContext;
-
-    public TaskListController(TodoTaskDb context)
-    {
-        _todoTaskDbContext = context;
-    }
+    private readonly TodoTaskDb _todoTaskDbContext = context;
 
     /// <summary>
     /// Asynchronously retrieves all task lists along with their associated tasks from the database.
