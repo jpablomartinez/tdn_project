@@ -22,7 +22,7 @@ public class TaskListController(TodoTaskDb context) : ControllerBase
         List<TaskList> taskLists = await _todoTaskDbContext.TaskLists
         .Include(t => t.Tasks)
         .ToListAsync();
-        return Ok(taskLists);
+        return Ok(new { data = taskLists });
     }
 
     /// <summary>
@@ -40,9 +40,9 @@ public class TaskListController(TodoTaskDb context) : ControllerBase
             .FirstOrDefaultAsync(t => t.Id == id);
         if (taskList == null)
         {
-            return NotFound(new { Message = "TaskList not found", Id = id });
+            return NotFound(new { Message = "TaskList not found!!", Id = id });
         }
-        return Ok(taskList);
+        return Ok(new { data = taskList });
     }
 
     /// <summary>

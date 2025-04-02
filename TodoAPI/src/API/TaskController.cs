@@ -64,7 +64,7 @@ public class TaskController : ControllerBase
     public async Task<IActionResult> GetAll()
     {
         List<TodoTask> tasks = await _todoTaskDbContext.Tasks.ToListAsync();
-        return Ok(tasks);
+        return Ok(new { data = tasks });
     }
 
     /// <summary>
@@ -79,7 +79,7 @@ public class TaskController : ControllerBase
     public async Task<IActionResult> GetById(int id)
     {
         TodoTask? task = await FindById(id);
-        return task == null ? NotFound(new { Message = "Task not found", Id = id }) : Ok(task);
+        return task == null ? NotFound(new { Message = "Task not found!", Id = id }) : Ok(new { data = task });
     }
 
     /// <summary>
@@ -122,7 +122,7 @@ public class TaskController : ControllerBase
         TodoTask? task = await FindById(id);
         if (task is null)
         {
-            return NotFound($"Task with id:{id} was not found");
+            return NotFound($"Task with id:{id} was not found!");
         }
         if (string.IsNullOrEmpty(request.Title))
         {

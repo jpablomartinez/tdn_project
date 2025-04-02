@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+    api:
+        build: ./TodoAPI
+        container_name: todo_dotnet_api
+        ports:
+            - '8080:8080'
+        depends_on:
+            - db
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - DOTNET_USE_POLLING_FILE_WATCHER=1 # Required for hot reload in Docker
+            - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=todos;Username=jkstudios;Password=070122
+        volumes:
+            - ./TodoAPI:/app # Mount local source for hot reload
+            - ~/.nuget/packages:/root/.nuget/packages # Cache NuGet packages
+        networks:
+            - backend
+
+    db:
+        image: postgres:16
+        container_name: todo_db
+        restart: always
+        ports:
+            - '5432:5432'
+        environment:
+            POSTGRES_DB: todos
+            POSTGRES_USER: jkstudios
+            POSTGRES_PASSWORD: 070122
+        volumes:
+            - pgdata:/var/lib/postgresql/data
+        networks:
+            - backend
+
+volumes:
+    pgdata:
+
+networks:
+    backend:

@@ -26,7 +26,7 @@ public class BoardController : ControllerBase
         .Include(b => b.TaskLists)
         .ThenInclude(tl => tl.Tasks)
         .ToListAsync();
-        return Ok(boards);
+        return Ok(new { data = boards });
     }
 
     /// <summary>
@@ -47,7 +47,7 @@ public class BoardController : ControllerBase
         {
             return NotFound(new { Message = "Board not found", Id = id });
         }
-        return Ok(board);
+        return Ok(new { data = board });
     }
 
     /// <summary>
